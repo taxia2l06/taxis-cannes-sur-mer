@@ -23,37 +23,97 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow-x: auto; /* scroll si trop petit */
 }
 
+.nav::-webkit-scrollbar { display: none; } /* masque la scrollbar sur Chrome */
+
 .logo {
-  height: 76px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+
+nav {
+  display: flex;
+  gap: 20px;
+  flex-shrink: 0;
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
-  margin-left: 20px;
   font-weight: 500;
+  white-space: nowrap; /* jamais à la ligne */
+  transition: all 0.3s ease;
 }
 
-/* HERO */
-.hero {
-  text-align: center;
-  padding: 60px 20px 40px;
+nav a:hover {
+  color: #cfcfcf;
+  transform: scale(1.1);
 }
+
+
+/* HERO AVEC IMAGE */
+
+.hero {
+  position: relative;
+  min-height: 90vh;
+  background: url("images/voiturea2l.png") center / cover no-repeat;
+  display: flex;
+  align-items: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.65),
+    rgba(0, 0, 0, 0.2)
+  );
+}
+
+.hero-content {
+  position: relative;
+  max-width: 650px;
+  padding: 60px 60px 60px 120px; /* ← clé ici */
+  color: #fff;
+}
+
 
 .hero h1 {
-  font-size: 2.2rem;
+  font-size: 3rem;
   margin-bottom: 10px;
+  white-space: nowrap; 
 }
 
-.subtitle {
-  color: #444;
-  margin-bottom: 25px;
+.hero h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+  white-space: nowrap; 
 }
 
-/* BUTTON */
+.hero-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  white-space: nowrap; 
+}
+
+/* BOUTONS HERO */
+.hero-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 100%;
+  align-items: flex-start;
+}
+
+/* Bouton téléphone */
 .btn-call {
+  text-align: center;
   display: inline-block;
   padding: 22px 52px;
   background: linear-gradient(135deg, #cfcfcf, #8f8f8f);
@@ -62,11 +122,51 @@ nav a {
   font-weight: bold;
   border-radius: 50px;
   text-decoration: none;
+  width: auto;
+  min-width: 180px;
 }
 
-.btn-call.big {
-  font-size: 1.2rem;
+/* Responsive : afficher "Appeler maintenant" sur mobile */
+.btn-desktop { display: inline; }
+.btn-mobile { display: none; }
+
+/* Bouton WhatsApp */
+.btn-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px;
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+  border-radius: 50px;
+  text-decoration: none;
+  width: auto;
+  min-width: 180px;
 }
+
+/* Logo WhatsApp dans le bouton */
+.btn-whatsapp img {
+  width: 22px;
+  height: 22px;
+}
+
+.btn-call, .btn-whatsapp {
+  transition: all 0.3s ease; /* douceur de l'animation */
+}
+
+/* quand on passe la souris dessus */
+.btn-call:hover {
+  transform: scale(1.05); /* le bouton grossit légèrement */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* léger ombrage */
+}
+
+.btn-whatsapp:hover {
+  transform: translateY(-3px); /* le bouton monte un peu */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
 
 .hero-car {
     margin-top: 50px;
@@ -130,41 +230,390 @@ nav a {
   margin-bottom: 10px;
 }
 
-/* REVIEWS */
+.service-card {
+  transition: transform 0.25s ease;
+}
+
+.service-card:hover {
+  transform: scale(1.05) translateY(-5px);
+}
+
+/* CTA sous services */
+.services-cta {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: nowrap; /* jamais passer à la ligne */
+}
+
+/* Boutons */
+.btn-service-call,
+.btn-service-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 10px;
+  white-space: nowrap; /* texte jamais à la ligne */
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* couleurs */
+.btn-service-call {
+  background: #e5e5e5;
+  color: #000;
+}
+
+.btn-service-whatsapp {
+  background: #25D366;
+  color: #fff;
+}
+
+.btn-service-whatsapp img {
+  width: 22px;
+  height: 22px;
+}
+
+/* hover */
+.btn-service-call:hover,
+.btn-service-whatsapp:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+
+/* SECTION AVIS */
 .reviews {
-  background: #f6f6f6;
-  padding: 60px 20px;
-  text-align: center;
+  background: #f5f5f5;
+  padding: 80px 20px;
 }
 
-.reviews h2 {
-  margin-bottom: 40px;
+.reviews-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
 }
 
-.review {
-  max-width: 700px;
-  margin: 0 auto 30px;
+/* BLOC GAUCHE */
+.reviews-left {
   background: #fff;
-  padding: 25px;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.reviews-left img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.reviews-left h3 {
+  margin-bottom: 10px;
+}
+
+.reviews-left .availability {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.reviews-left ul {
+  list-style: none;
+  padding: 0;
+}
+
+.reviews-left li {
+  margin-bottom: 8px;
+}
+
+/* BLOC DROIT */
+.reviews-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reviews-header {
+  display: flex;
+  justify-content: space-between; /* titre à gauche, note à droite */
+  align-items: center;           /* aligner sur la même ligne verticalement */
+  flex-wrap: nowrap;             /* empêcher le passage à la ligne */
+  gap: 15px;
+}
+
+.rating {
+  font-weight: bold;
+  white-space: nowrap; /* empêcher les étoiles de passer à la ligne */
+}
+
+.review-card {
+  background: #fff;
+  padding: 20px;
   border-radius: 10px;
 }
 
-/* CONTACT */
-.contact {
-  padding: 60px 20px;
-  text-align: center;
+.review-card span {
+  display: block;
+  margin-top: 10px;
+  font-style: italic;
+  color: #555;
 }
 
-/* FOOTER */
-.footer {
-  background: #000;
-  color: #aaa;
+/* BOUTON GOOGLE */
+.btn-google {
+  display: inline-block;
   text-align: center;
-  padding: 20px;
-  font-size: 0.9rem;
+  padding: 16px;
+  background: #000;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.btn-google:hover {
+  transform: scale(1.05);
+}
+
+/* MAP */
+.map iframe {
+  width: 100%;
+  height: 250px;
+  border: 0;
+  border-radius: 10px;
 }
 
 /* RESPONSIVE */
+@media (max-width: 768px) {
+  .reviews-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .reviews-header {
+    flex-direction: column;  /* sur mobile, titre et note l’un sous l’autre */
+    align-items: center; 
+    text-align: center;
+    gap: 5px;
+  }
+
+  .rating {
+    font-size: 1rem; /* réduire la taille sur mobile si nécessaire */
+  }
+}
+
+
+/* CONTACT */
+
+
+/* SECTION CONTACT AVEC FOND GRIS */
+.contact-section {
+  background: #f6f6f6;
+  max-width: 100%;
+  margin: 0;
+  padding: 40px 20px 40px; /* ← réduit le padding-top */
+  box-sizing: border-box;
+}
+
+/* TITRE DE SECTION */
+.contact-section .section-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.contact-section .section-title h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #111;
+  position: relative;
+  padding: 0 20px;
+  background: #f6f6f6;  /* le même gris pour masquer la ligne derrière */
+  z-index: 1;
+}
+
+/* Ligne horizontale derrière le titre */
+.contact-section .section-title::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: #ccc;
+  z-index: 0;
+}
+
+.contact-bar {
+  background: #111;  
+  color: #fff;
+  border-radius: 14px;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: nowrap; /* côte à côte */
+  max-width: 100%;
+  margin: auto;
+}
+
+/* TEXTE + LIENS */
+.contact-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: nowrap;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.contact-phone {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffd700; /* couleur qui se démarque */
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.contact-mail {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #ddd;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.contact-separator {
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.contact-logo {
+  height: 55px;
+}
+
+/* RESPONSIVE MOBILE */
+@media (max-width: 768px) {
+  .contact-bar {
+    flex-direction: column; /* texte au dessus, logo en dessous */
+    align-items: center;
+    padding: 20px;
+    gap: 12px; /* espace entre texte et logo */
+  }
+
+  .contact-info {
+    flex-direction: column; /* texte l’un sous l’autre */
+    align-items: center;
+    gap: 5px;
+    font-size: 1rem; /* réduire la taille */
+  }
+
+  .contact-phone,
+  .contact-mail {
+    font-size: 1rem; /* texte plus petit */
+    white-space: normal; /* texte peut se casser */
+  }
+
+  .contact-separator {
+    display: none; /* plus nécessaire quand c’est vertical */
+  }
+
+  .contact-logo {
+    height: 45px; /* réduire légèrement sur mobile */
+  }
+}
+
+
+.footer {
+  background: #000;
+  color: #aaa;
+  padding: 40px 20px;
+  font-size: 0.9rem;
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+}
+
+.footer-title {
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.footer a {
+  color: #ddd;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-contact {
+  margin: 15px 0;
+  font-weight: 500;
+}
+
+.footer-legal {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .footer {
+    font-size: 0.85rem;
+  }
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .presentation {
+        padding: 0 25px;
+        margin: 60px auto; /* moins d’espace vertical sur mobile */
+    }
+
+    .presentation h2 {
+        font-size: 1.6rem;
+    }
+
+    .presentation p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) {
+  .header .nav {
+    flex-wrap: nowrap;      /* interdit le passage à la ligne */
+    overflow-x: auto;       /* scroll horizontal si trop petit */
+  }
+
+  .header .nav nav {
+    flex-wrap: nowrap;      /* liens restent sur une ligne */
+  }
+
+  .header .nav nav a {
+    white-space: nowrap;    /* texte des liens jamais coupé */
+  }
+}
+
 @media (max-width: 900px) {
   .services-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -190,5 +639,70 @@ nav a {
         padding: 24px 0;
     }
 }
+
+}
+
+
+
+@media (max-width: 768px) {
+  .btn-desktop { display: none; }
+  .btn-mobile { display: inline; }
+}
+
+/* RESPONSIVE MOBILE */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 1.9rem;
+    white-space: normal; /* peut se casser si besoin */
+    text-align: center; /* centré horizontalement */
+  }
+
+  .hero-text {
+    font-size: 1rem;
+    white-space: normal;
+    text-align: center;
+    padding: 0 15px; /* éviter le débordement */
+  }
+
+  .hero-buttons {
+    width: 100%;
+    flex-direction: column; /* boutons l’un sous l’autre */
+    align-items: center;
+    gap: 12px;
+  }
+
+  .btn-call, .btn-whatsapp {
+    width: 90%; /* boutons plus larges et responsive */
+    min-width: auto;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-cta {
+    flex-direction: column; /* boutons l’un sous l’autre */
+    align-items: center;    /* centrés */
+    gap: 15px;
+  }
+
+  .btn-service-call,
+  .btn-service-whatsapp {
+    white-space: normal;    /* texte peut maintenant se casser si nécessaire */
+    padding: 14px 25px;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 320px;      /* limite largeur des boutons */
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 20px 20px 30px 20px; /* top, droite, bas, gauche */
+  }
+}
+
+
 
 }
