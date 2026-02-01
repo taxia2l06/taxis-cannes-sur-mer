@@ -653,7 +653,6 @@ nav a:hover {
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 1.9rem;
-    white-space: normal; /* peut se casser si besoin */
     text-align: center; /* centré horizontalement */
     white-space: nowrap;
   }
