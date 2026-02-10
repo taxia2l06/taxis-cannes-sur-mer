@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="dPhVLLIlC1IGFPqcrDcy3TRiZXFcxwkRTf7WY4Plouk" />
+  
   <title>Taxi A2L 06 – Taxi à Cagnes-sur-Mer</title>
   <meta name="description" content="Taxi A2L 06 à Cagnes-sur-Mer. Taxi conventionné CPAM pour transports médicaux, transferts aéroport de Nice et longues distances. Disponible 24h/24 dans les Alpes-Maritimes.">
   <meta name="keywords" content="taxi cagnes-sur-mer, taxis cagnes-sur-mer, taxi conventionné CPAM, taxi aéroport Nice, taxi Alpes-Maritimes, taxi longue distance">
@@ -11,20 +12,47 @@
   <meta name="robots" content="index, follow">
   <link rel="stylesheet" href="style.css">
 
+  <!-- Favicon -->
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
 </head>
+
 <body>
 
-  <header class="header"> <div class="nav"> <img src="images/logo-a2l06.png" alt="Logo taxi Cagnes sur Mer A2L 06" class="logo"> <nav> <a href="#accueil">Accueil</a> <a href="#services">Services</a> <a href="#avis">Avis</a> <a href="#contact">Contact</a> </nav> </div> </header>
+<header class="header">
+  <div class="nav">
+
+    <img src="images/logo-a2l06.png" alt="Logo taxi Cagnes sur Mer A2L 06" class="logo">
+
+    <!-- Bouton burger (mobile only) -->
+    <button class="burger" aria-label="Ouvrir le menu">
+      ☰
+    </button>
+
+    <!-- Menu -->
+    <nav class="nav-menu">
+      <a href="#accueil">Accueil</a>
+      <a href="#services">Services</a>
+      <a href="#avis">Avis</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+  </div>
+</header>
 
 <section class="hero" id="accueil">
   <div class="hero-overlay"></div>
 
   <div class="hero-content">
-    <h1>Taxi Cagnes-Sur-Mer · A2L 06</h1>
+
+    <h1>
+  Taxi Cagnes-sur-Mer
+  <span class="hero-subtitle">A2L 06</span>
+    </h1>
 
     <p class="hero-text">
-      Taxi conventionné CPAM · Aéroport de Nice et gares · Longues distances<br>
+      Taxi médical conventionné CPAM · Aéroport de Nice et gares · Longues distances<br>
       Disponible 24h/24 – Réservation rapide
     </p>
 
@@ -115,7 +143,7 @@
 
       <div class="reviews-header">
         <h2>Avis de nos clients</h2>
-        <p class="rating">5/ 5 ⭐⭐⭐⭐⭐</p>
+        <p class="rating">4.9 / 5 ⭐⭐⭐⭐⭐</p>
       </div>
 
       <div class="review-card">
@@ -200,7 +228,7 @@
     </p>
 
     <p>
-      Taxi conventionné CPAM à Cagnes-sur-Mer et dans les Alpes-Maritimes (Villeneuve-Loubet, La Colle-sur-Loup, Vence, Saint-Laurent-du-Var, Antibes, Carros...).<br>
+      Taxi médical conventionné CPAM à Cagnes-sur-Mer et dans les Alpes-Maritimes (Villeneuve-Loubet, La Colle-sur-Loup, Vence, Saint-Laurent-du-Var, Antibes, Carros...).<br>
       Transferts aéroport de Nice, gares, longues distances.<br>
       Disponible 24h/24 – 7j/7.
     </p>
@@ -229,6 +257,14 @@
   </div>
 </footer>
 
+<script>
+  const burger = document.querySelector('.burger');
+  const menu = document.querySelector('.nav-menu');
+
+  burger.addEventListener('click', () => {
+    menu.classList.toggle('open');
+  });
+</script>
 
 </body>
 </html>
