@@ -14,7 +14,10 @@ body {
 /* HEADER */
 .header {
   background: #000;
+  position: relative;
+  z-index: 1000;
 }
+
 
 .nav {
   max-width: 1200px;
@@ -23,10 +26,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  overflow-x: auto; /* scroll si trop petit */
 }
-
-.nav::-webkit-scrollbar { display: none; } /* masque la scrollbar sur Chrome */
 
 .logo {
   height: 120px;
@@ -51,6 +51,60 @@ nav a {
 nav a:hover {
   color: #cfcfcf;
   transform: scale(1.1);
+}
+
+/* MENU */
+.nav {
+  position: relative;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 20px;
+}
+
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+
+  .burger {
+    display: block;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    background: #000;
+    flex-direction: column;
+    align-items: center;
+
+    max-height: 0;
+    overflow: hidden;
+
+    transition: max-height 0.3s ease;
+    z-index: 2000;
+  }
+
+  .nav-menu a {
+    padding: 15px 0;
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid #222;
+  }
+
+  .nav-menu.open {
+    max-height: 300px;
+  }
 }
 
 
@@ -599,21 +653,6 @@ nav a:hover {
     }
 }
 
-@media (max-width: 768px) {
-  .header .nav {
-    flex-wrap: nowrap;      /* interdit le passage à la ligne */
-    overflow-x: auto;       /* scroll horizontal si trop petit */
-  }
-
-  .header .nav nav {
-    flex-wrap: nowrap;      /* liens restent sur une ligne */
-  }
-
-  .header .nav nav a {
-    white-space: nowrap;    /* texte des liens jamais coupé */
-  }
-}
-
 @media (max-width: 900px) {
   .services-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -642,8 +681,6 @@ nav a:hover {
 
 }
 
-
-
 @media (max-width: 768px) {
   .btn-desktop { display: none; }
   .btn-mobile { display: inline; }
@@ -653,14 +690,22 @@ nav a:hover {
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 1.9rem;
-    text-align: center; /* centré horizontalement */
-    white-space: nowrap;
+    text-align: left;
+    white-space: normal;   /* autorise le retour à la ligne */
+    line-height: 1.05;
+    padding: 0 15px;
+  }
+
+  .hero-subtitle {
+    display: block;       /* passe à la ligne */
+    margin-top: 4px;      /* espace maîtrisé */
+    font-weight: 700;
   }
 
   .hero-text {
     font-size: 1rem;
     white-space: normal;
-    text-align: center;
+    text-align: left;
     padding: 0 15px; /* éviter le débordement */
   }
 
@@ -670,13 +715,50 @@ nav a:hover {
     align-items: center;
     gap: 12px;
   }
+}
 
-  .btn-call, .btn-whatsapp {
-    width: 90%; /* boutons plus larges et responsive */
-    min-width: auto;
-    font-size: 1rem;
+@media (max-width: 768px) {
+
+  .hero-buttons {
+    align-items: flex-start;
+    margin-left: 12px;
+    gap: 12px;
+  }
+
+  .hero-buttons .btn-call,
+  .hero-buttons .btn-whatsapp {
+    width: 240px;          /* même largeur */
+    padding: 14px 18px;    /* plus épais, mais maîtrisé */
+    font-size: 15px;
+    border-radius: 14px;   /* look plus premium */
+    justify-content: center;
   }
 }
+
+
+@media (max-width: 768px) {
+  .hero-overlay {
+    background: rgba(0,0,0,0.35);
+  }
+}
+
+
+@media (max-width: 768px) {
+
+  .hero-buttons {
+    align-items: flex-start;   /* aligne à gauche */
+    margin-left: 12px;         /* décale légèrement */
+    gap: 10px;                 /* espace entre boutons */
+  }
+
+  .hero-buttons .btn-call,
+  .hero-buttons .btn-whatsapp {
+    padding: 10px 18px;        /* boutons plus petits */
+    font-size: 14px;           /* texte plus discret */
+    border-radius: 10px;       /* moins "pillow" */
+  }
+}
+
 
 @media (max-width: 768px) {
   .services-cta {
